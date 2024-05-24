@@ -1,5 +1,7 @@
 Meta Backend Developer Final Project
 
+Before you begin:
+
 To start working with Django Project, need to configure/install the following:
 
 1. clone Little Lemon repo

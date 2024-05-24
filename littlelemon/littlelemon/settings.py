@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'restaurant',
     'rest_framework',
     'rest_framework.authtoken',
-    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -148,3 +147,5 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ]
 }
+
+DJOSER={"USER_ID_FIELD":"username"}

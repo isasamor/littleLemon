@@ -1,26 +1,43 @@
-from django.shortcuts import render
-from rest_framework.views import APIView
-from rest_framework.response import Response
-
-from .models import Booking
+from rest_framework import generics, viewsets, permissions
+from .models import Booking, Menu
 from .serializer import bookingSerializer, menuSerializer
 
 
-# Create your views here.
-def index(request):
-    return render(request, 'index.html',{})
+class MenuItemView(generics.ListCreateAPIView):
+    queryset = Menu.objects.all()
+    serializer_class = menuSerializer
 
-class bookingview(APIView):
-    def get(self,request):
-        items = Booking.objects.all()
-        serializers = bookingSerializer(items,many=True)
-        return Response(serializers.data) # Return JSON
+class SingelMenuItemView(generics.RetrieveUpdateAPIView, generics.DestroyAPIView):
+    queryset = Menu.objects.all()
+    serializer_class = menuSerializer
 
-class menuview(APIView):
-    def post(self,request):
-        serializer = menuSerializer(data=request.data)
+class BookingViewSet(viewsets.ModelViewSet):
+    queryset = Booking.objects.all()
+    serializer_class = bookingSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response({"status": "success", "data":"serialized.data"})
-            
+# class UserViewSet(viewsets.ModelViewSet):
+#    queryset = User.objects.all() 
+#    serializer_class = UserSerializer
+#    permission_classes = [permissions.IsAuthenticated] 
+
+
+
+
+
+
+
+# class bookingview(APIView):
+#     def get(self,request):
+#         items = Booking.objects.all()
+#         serializers = bookingSerializer(items,many=True)
+#         return Response(serializers.data) # Return JSON
+
+# class menuview(APIView):
+#     def post(self,request):
+#         serializer = menuSerializer(data=request.data)
+
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response({"status": "success", "data":"serialized.data"})
+
